@@ -9,7 +9,6 @@ import React from "react";
 import restaurants from "../data/Restaurants";
 import categories from "../data/Categoriest";
 import RestaurantCard from "../component/RestaurantCard";
-import CategorieCard from "../component/CategorieCard";
 import CategoriesList from "./CategoriesList";
 
 const RestaurantList = () => {
