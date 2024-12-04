@@ -9,20 +9,30 @@ import DishDetailsCard from "./src/component/DishDetailsCard";
 import CartCard from "./src/component/CartCard";
 import LoginPage from "./src/screen/LoginPage";
 import RegisterPage from "./src/screen/RegisterPage";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthNavigation from "./src/navigation/AuthNav/AuthNavigation";
+import RestaurantNavigation from "./src/navigation/DetailNav/RestaurantNavigation";
+import MainNav from "./src/MainNavigation/MainNav";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <CategoriesList /> */}
-      {/* <RestaurantList /> */}
-      {/* <Menu /> */}
-      {/* <DishDetailsCard /> */}
-      {/* <CartCard /> */}
-      {/* <LoginPage /> */}
-      <RegisterPage />
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
+        {/* <CategoriesList /> */}
+        {/* <RestaurantList /> */}
+        {/* <Menu /> */}
+        {/* <DishDetailsCard /> */}
+        {/* <CartCard /> */}
+        {/* <LoginPage /> */}
+        {/* <RegisterPage /> */}
 
-      <StatusBar style="auto" />
-    </SafeAreaView>
+        {/* <AuthNavigation /> */}
+        {/* <RestaurantNavigation /> */}
+        <MainNav />
+
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
 

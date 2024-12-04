@@ -6,8 +6,10 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterPage = () => {
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,6 +40,11 @@ const RegisterPage = () => {
 
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
+      {/* navigation */}
+      <Text>Already have an account?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text>Login</Text>
       </TouchableOpacity>
     </View>
   );

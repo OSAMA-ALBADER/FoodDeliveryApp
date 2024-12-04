@@ -2,30 +2,32 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import restaurants from "../data/Restaurants";
 
-const CartCard = () => {
+const CartCard = ({ route }) => {
+  const { menuItem } = route.params;
   // Static items
   const cartItems = [
-    {
-      id: 1,
-      name: "Spaghetti Carbonara",
-      price: 12.99,
-      quantity: 1,
-      image:
-        "https://stefaniaskitchenette.com/wp-content/uploads/2024/07/Carbonara-3-720x1080.webp",
-    },
-    {
-      id: 2,
-      name: "Margherita Pizza",
-      price: 10.99,
-      quantity: 2,
-      image:
-        "https://au.ooni.com/cdn/shop/articles/20220211142645-margherita-9920.jpg?crop=center&height=800&v=1662539926&width=800",
-    },
+    // {
+    //   id: 1,
+    //   name: "Spaghetti Carbonara",
+    //   price: 12.99,
+    //   quantity: 1,
+    //   image:
+    //     "https://stefaniaskitchenette.com/wp-content/uploads/2024/07/Carbonara-3-720x1080.webp",
+    // },
+    // {
+    //   id: 2,
+    //   name: "Margherita Pizza",
+    //   price: 10.99,
+    //   quantity: 2,
+    //   image:
+    //     "https://au.ooni.com/cdn/shop/articles/20220211142645-margherita-9920.jpg?crop=center&height=800&v=1662539926&width=800",
+    // },
   ];
+  cartItems.push(menuItem);
 
   // Calculate total cost
   const totalCost = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + item.price * 1,
     0
   );
   return (
@@ -38,7 +40,7 @@ const CartCard = () => {
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemDetails}>
               {" "}
-              ${item.price.toFixed(2)} x {item.quantity}
+              ${item.price} x {1}
             </Text>
           </View>
         </View>

@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const RestaurantCard = ({ restaurant }) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate("Menu", {
+          restaurant,
+        })
+      }
+    >
       <Image source={{ uri: restaurant.image }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.name}>{restaurant.name}</Text>

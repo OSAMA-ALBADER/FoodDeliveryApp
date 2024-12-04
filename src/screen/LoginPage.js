@@ -6,8 +6,10 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginPage = () => {
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   return (
@@ -29,6 +31,11 @@ const LoginPage = () => {
 
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Log In</Text>
+      </TouchableOpacity>
+      {/* navigation */}
+      <Text>Don't have an account!</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <Text>Register</Text>
       </TouchableOpacity>
     </View>
   );

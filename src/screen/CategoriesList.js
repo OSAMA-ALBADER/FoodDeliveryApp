@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import CategorieCard from "../component/CategorieCard";
-import Categories from "../data/Categoriest";
+import categories from "../data/Categoriest";
 const CategoriesList = () => {
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ const CategoriesList = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
       >
-        {Categories.map((category) => (
+        {categories.map((category) => (
           <TouchableOpacity key={category.id}>
             <CategorieCard key={category.id} category={category} />
           </TouchableOpacity>

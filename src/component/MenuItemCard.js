@@ -1,15 +1,33 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const MenuItemCard = ({ menuItem }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.card}>
       <Image source={{ uri: menuItem.image }} style={styles.image} />
-      <View style={styles.details}>
-        <Text style={styles.name}>{menuItem.name}</Text>
-        <Text style={styles.price}>{menuItem.price}</Text>
-      </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.details}
+        onPress={() =>
+          navigation.navigate("Dishes", {
+            menuItem,
+          })
+        }
+      >
+        <View style={styles.details}>
+          <Text style={styles.name}>{menuItem.name}</Text>
+          <Text style={styles.price}>{menuItem.price}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("Cart", {
+            menuItem,
+          })
+        }
+      >
         <Text style={styles.buttonText}>Add to Cart</Text>
       </TouchableOpacity>
     </View>

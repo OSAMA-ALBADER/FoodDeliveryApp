@@ -3,13 +3,14 @@ import React from "react";
 import restaurants from "../data/Restaurants";
 import MenuItemCard from "../component/MenuItemCard";
 
-const Menu = () => {
-  const selectedRestuarant = restaurants[0];
+const Menu = ({ route }) => {
+  const { restaurant } = route.params;
+  // const selectedRestuarant = restaurants[0];
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> {selectedRestuarant.name} </Text>
+      <Text style={styles.header}> {restaurant.name} </Text>
       <ScrollView contentContainerStyle={styles.menuList}>
-        {selectedRestuarant.menuItems.map((menuItem) => (
+        {restaurant.menuItems.map((menuItem) => (
           <MenuItemCard key={menuItem.id} menuItem={menuItem} />
         ))}
       </ScrollView>
