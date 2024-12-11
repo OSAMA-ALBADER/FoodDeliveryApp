@@ -1,59 +1,75 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const RestaurantCard = ({ restaurant }) => {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={styles.card}
       onPress={() =>
-        navigation.navigate("Menu", {
-          restaurant,
-        })
+        navigation.navigate("Menu", { restaurantId: restaurant._id })
       }
     >
-      <Image source={{ uri: restaurant.image }} style={styles.image} />
-      <View style={styles.info}>
+      <Image
+        source={{ uri: restaurant.image }}
+        style={styles.image}
+        resizeMode="cover"
+      />
+      <View style={styles.infoContainer}>
         <Text style={styles.name}>{restaurant.name}</Text>
-        <Text style={styles.details}>{restaurant.rating} </Text>
-        <Text style={styles.details}>{restaurant.deliveryTime}</Text>
+        <Text style={styles.category}>{restaurant.category.name}</Text>
+        <Text style={styles.details}>
+          ⭐ {restaurant.rating} | 🕒 {restaurant.deliveryTime}
+        </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default RestaurantCard;
-
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    padding: 15,
-    borderRadius: 8,
+    margin: 10,
+    padding: 12,
     backgroundColor: "#fff",
+    borderRadius: 8,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    margin: 8,
+    elevation: 2,
   },
   image: {
-    height: 80,
     width: 80,
+    height: 80,
     borderRadius: 8,
-    marginRight: 10,
   },
-  info: {
+  infoContainer: {
     flex: 1,
-    justifyContent: "center",
+    marginLeft: 12,
+    justifyContent: "space-between",
+    paddingVertical: 4,
   },
   name: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
+    color: "#333",
+    marginBottom: 4,
+  },
+  category: {
+    fontSize: 14,
+    color: "#666",
     marginBottom: 4,
   },
   details: {
     fontSize: 14,
-    color: "#555",
+    color: "#666",
   },
 });
+
+export default RestaurantCard;

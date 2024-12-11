@@ -1,17 +1,41 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import restaurants from "../data/Restaurants";
+import { useQuery } from "@tanstack/react-query";
+import { GetResturantByID, GetResturantItems } from "../api/Restaurants";
 import MenuItemCard from "../component/MenuItemCard";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const Menu = ({ route }) => {
-  const { restaurant } = route.params;
-  // const selectedRestuarant = restaurants[0];
+  const { restaurantId } = route.params;
+
+  const { data: restaurant } = useQuery({
+    queryKey: ["restaurant", restaurantId],
+    queryFn: () => GetResturantByID(restaurantId),
+  });
+
+  const {
+    data: menuItems,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["menuItems", restaurantId],
+    queryFn: () => GetResturantItems(restaurantId),
+  });
+
+  if (isLoading)
+    return (
+      <View style={styles.loadingContainer}>
+        <AntDesign name="loading1" size={24} color="black" />
+      </View>
+    );
+  if (error) return <Text>Error: {error.message}</Text>;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> {restaurant.name} </Text>
+      <Text style={styles.header}>{restaurant?.name}</Text>
       <ScrollView contentContainerStyle={styles.menuList}>
-        {restaurant.menuItems.map((menuItem) => (
-          <MenuItemCard key={menuItem.id} menuItem={menuItem} />
+        {menuItems?.map((menuItem) => (
+          <MenuItemCard key={menuItem._id} menuItem={menuItem} />
         ))}
       </ScrollView>
     </View>
@@ -35,5 +59,10 @@ const styles = StyleSheet.create({
   },
   menuList: {
     paddingBottom: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

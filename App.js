@@ -1,38 +1,36 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import RestaurantList from "./src/screen/RestaurantList";
-import CategorieCard from "./src/component/CategorieCard";
-import CategoriesList from "./src/screen/CategoriesList";
-import Menu from "./src/screen/Menu";
-import Dishes from "./src/screen/Dishes";
-import DishDetailsCard from "./src/component/DishDetailsCard";
-import CartCard from "./src/component/CartCard";
-import LoginPage from "./src/screen/LoginPage";
-import RegisterPage from "./src/screen/RegisterPage";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "./src/context/UserContext";
 import AuthNavigation from "./src/navigation/AuthNav/AuthNavigation";
-import RestaurantNavigation from "./src/navigation/DetailNav/RestaurantNavigation";
 import MainNav from "./src/MainNavigation/MainNav";
+import { getToken } from "./src/api/storage";
 
 export default function App() {
+  const queryClient = new QueryClient();
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await getToken();
+      if (token) setAuthenticated(true);
+    };
+    checkToken();
+  }, []);
+
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        {/* <CategoriesList /> */}
-        {/* <RestaurantList /> */}
-        {/* <Menu /> */}
-        {/* <DishDetailsCard /> */}
-        {/* <CartCard /> */}
-        {/* <LoginPage /> */}
-        {/* <RegisterPage /> */}
-
-        {/* <AuthNavigation /> */}
-        {/* <RestaurantNavigation /> */}
-        <MainNav />
-
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </NavigationContainer>
+    <UserContext.Provider value={{ authenticated, setAuthenticated }}>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <SafeAreaView style={styles.container}>
+            {authenticated ? <MainNav /> : <AuthNavigation />}
+            <StatusBar style="auto" />
+          </SafeAreaView>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </UserContext.Provider>
   );
 }
 
